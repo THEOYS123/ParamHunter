@@ -99,23 +99,13 @@ def crawl_website(base_url, filters, random_search=False, af_search=False, pr_se
         filters.extend([generate_random_parameter() for _ in range(3)])
         console.print("[bold yellow][INFO] Menggunakan parameter random untuk pencarian.[/bold yellow]")
 
-  if af_search:
-    admin_paths = [
-        '/admin', '/admin.php', '/administrator', '/adminarea', '/wp-admin', '/cpanel', 
-        '/admin-login', '/adminpanel', '/admin-dashboard', '/controlpanel', '/login', '/admin_login',
-        '/backdoor', '/secure-area', '/panel/login', '/manager', '/adminlogin.php', '/admin_access', 
-        '/admin-zone', '/private-area', '/sysadmin', '/superuser', '/cms-admin', '/console', '/hostadmin',
-        '/admin_page', '/system-login', '/adminconsole', '/adminweb', '/paneladmin.php', '/adminzone/login', 
-        '/webadmin-login', '/admin-portal', '/controlcenter', '/adminloginpanel', '/adminui', '/secureadminpanel',
-        '/cms_admin', '/backendadmin', '/control-admin', '/adminpanel-area', '/adminpanelconsole', 
-        '/staff-admin', '/internaladmin', '/manager-login', '/admininterface', '/usersystem', 
-        '/dashboard-admin', '/managerpanel', '/sysadminlogin', '/webadminpanel', '/admin-area-login',
-        '/backoffice', '/internalaccess', '/admin-dashboard/login', '/management-console', 
-        '/adminweb-access', '/admin-configure', '/admin-portal/login', '/privatesystem', 
-        '/adminui-panel', '/admin-pages', '/adminconfig.php', '/cpanel-access', '/admin-setup',
-    ]
-    filters.extend(admin_paths)
-    console.print("[bold yellow][INFO] Mencari admin finder dengan filter yang relevan.[/bold yellow]")
+    if af_search:
+        admin_paths = [
+            '/admin', '/admin.php', '/administrator', '/adminarea', '/wp-admin', '/cpanel',
+            '/admin-login', '/adminpanel', '/admin-dashboard', '/controlpanel', '/login', '/admin_login'
+        ]
+        filters.extend(admin_paths)
+        console.print("[bold yellow][INFO] Mencari admin finder dengan filter yang relevan.[/bold yellow]")
 
     if pr_search:
         pr_filters = ['?id=', '?page=', '?search=', '?category=', '?product=', '?lang=', 'page?', '?keyword=']
@@ -213,7 +203,7 @@ python ParamHunter https://example.com -f .php -pr
 -random : Mencari parameter secara random (dorking)
 -af : Mencari halaman admin (admin finder)
 -pr : Mencari parameter rentan
-    """, title="[bold blue]ParamHunter  - Help[/bold blue]", border_style="bold green"))
+    """, title="[bold blue]ParamHunter - Help[/bold blue]", border_style="bold green"))
 
 def main():
     parser = argparse.ArgumentParser(
@@ -255,19 +245,9 @@ def main():
     # Tambahkan filter admin finder jika -af digunakan
     if args.af:
         admin_paths = [
-        '/admin', '/admin.php', '/administrator', '/adminarea', '/wp-admin', '/cpanel', 
-        '/admin-login', '/adminpanel', '/admin-dashboard', '/controlpanel', '/login', '/admin_login',
-        '/backdoor', '/secure-area', '/panel/login', '/manager', '/adminlogin.php', '/admin_access', 
-        '/admin-zone', '/private-area', '/sysadmin', '/superuser', '/cms-admin', '/console', '/hostadmin',
-        '/admin_page', '/system-login', '/adminconsole', '/adminweb', '/paneladmin.php', '/adminzone/login', 
-        '/webadmin-login', '/admin-portal', '/controlcenter', '/adminloginpanel', '/adminui', '/secureadminpanel',
-        '/cms_admin', '/backendadmin', '/control-admin', '/adminpanel-area', '/adminpanelconsole', 
-        '/staff-admin', '/internaladmin', '/manager-login', '/admininterface', '/usersystem', 
-        '/dashboard-admin', '/managerpanel', '/sysadminlogin', '/webadminpanel', '/admin-area-login',
-        '/backoffice', '/internalaccess', '/admin-dashboard/login', '/management-console', 
-        '/adminweb-access', '/admin-configure', '/admin-portal/login', '/privatesystem', 
-        '/adminui-panel', '/admin-pages', '/adminconfig.php', '/cpanel-access', '/admin-setup'
-    ]
+            '/admin', '/admin.php', '/administrator', '/adminarea', '/wp-admin', '/cpanel',
+            '/admin-login', '/adminpanel', '/admin-dashboard', '/controlpanel', '/login', '/admin_login'
+        ]
         filters.extend(admin_paths)
         console.print("[bold yellow][INFO] Menggunakan filter admin finder.[/bold yellow]")
 
