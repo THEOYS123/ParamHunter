@@ -1,3 +1,5 @@
+![Welcome GIF](https://media.tenor.com/id/view/wlcm-gif-12693328313924801782.gif)
+
 # *Pemberitahuan Penting Mengenai Filter❗*
 
 - **Filter `-af` (Admin Finder):**  
@@ -7,20 +9,6 @@
   Filter ini juga belum sepenuhnya efisien untuk digunakan dan saat ini sedang dalam proses perbaikan agar dapat memberikan hasil yang lebih optimal.  
 
 Terima kasih atas pengertiannya! Saya RenXploit akan terus memberikan pembaruan untuk meningkatkan kinerja script ini.
-
-# Terminal Hacking
-
-```bash
-$ git clone https://github.com/THEOYS123/ParamHunter.git
-$ cd ParamHunter
-$ python3 start.py
-
-# ParamHunter 🚀  
-**ParamHunter** adalah script crawler berbasis Python yang dirancang untuk membantu menganalisis dan memindai website dengan fitur lengkap seperti pencarian halaman admin, parameter rentan, serta filter random otomatis. Tool ini sangat berguna untuk keperluan **pentesting legal**.  
-```
----
-
-![Hacker Terminal Background](https://www.wallpaperbetter.com/wallpaper/784/914/979/green-matrix-code-wallpaper-1080x1920.jpg)
 
 ## ✨ **Fitur Utama**  
 1. **Crawling URL Otomatis** 🔍  
