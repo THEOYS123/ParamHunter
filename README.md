@@ -1,4 +1,4 @@
-# **⚠️ Pemberitahuan Penting Mengenai Filter ⚠️**
+# *⚠️ Pemberitahuan Penting Mengenai Filter ⚠️*
 
 - **Filter `-af` (Admin Finder):**  
   Filter ini masih dalam tahap pengembangan dan perbaikan, sehingga kurang efektif untuk digunakan. Tim pengembang sedang berusaha meningkatkan akurasi dan efisiensinya.  
@@ -51,11 +51,12 @@ Terima kasih atas pengertiannya! Saya RenXploit akan terus memberikan pembaruan 
    pkg update
    pkg upgrade
    pkg update && pkg upgrade
-   git clone https://github.com/what-and-you/ParamHunter.git
+   git clone https://github.com/THEOYS123/ParamHunter.git
    cd ParamHunter
    python param.py -h
    
 2. Pastikan Python 3.x terinstal di perangkat kamu.
+3. udah lah langsung aja pake script nya nih udah di jelasin juga cara install nya jadi jangan bingung anjer jangan pada nanya cara pake nya nih udah gw jelasin cokkkkkkk
 
 
 
@@ -96,6 +97,9 @@ python param.py https://example.com -pr
 Menggabungkan admin finder, parameter rentan, dan filter random:
 
 python param.py https://example.com -random -af -pr
+
+
+# *📸screenshot 📸*
 
 <p align="center">
   <a href="https://f.top4top.io/p_3133egjqz2.jpg">
