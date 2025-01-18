@@ -1,4 +1,4 @@
-<div class="tenor-gif-embed" data-postid="12693328313924801782" data-share-method="host" data-aspect-ratio="1" data-width="100%"><a href="https://tenor.com/view/wlcm-gif-12693328313924801782">Wlcm Sticker</a>from <a href="https://tenor.com/search/wlcm-stickers">Wlcm Stickers</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+<img src="https://tenor.com/id/view/wlcm-gif-12693328313924801782" alt="Welcome GIF" width="200" />
 
 # *Pemberitahuan Penting Mengenai Filter❗*
 
