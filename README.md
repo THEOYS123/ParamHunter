@@ -8,6 +8,8 @@
 
 Terima kasih atas pengertiannya! Saya RenXploit akan terus memberikan pembaruan untuk meningkatkan kinerja script ini.
 
+![Visitor Badge](https://visitor-badge.laobi.icu/badge?page_id=THEOYS123.ParamHunter)
+
 
 # ParamHunter 🚀  
 **ParamHunter** adalah script crawler berbasis Python yang dirancang untuk membantu menganalisis dan memindai website dengan fitur lengkap seperti pencarian halaman admin, parameter rentan, serta filter random otomatis. Tool ini sangat berguna untuk keperluan **pentesting legal**.  
