@@ -100,7 +100,7 @@ python param.py https://example.com -random -af -pr
 
 <p align="center">
   <a href="https://f.top4top.io/p_3305ofiqh7.jpg">
-    <img src="https://f.top4top.io/p_3305ofiqh7.jpg" width="300" height="300px" />
+    <img src="https://f.top4top.io/p_3305ofiqh7.jpg" width="300" height="280" />
   </a>
 </p>
 
