@@ -102,8 +102,8 @@ python param.py https://example.com -random -af -pr
 # *📸screenshot 📸*
 
 <p align="center">
-  <a href="https://f.top4top.io/p_3133egjqz2.jpg">
-    <img src="https://f.top4top.io/p_3133egjqz2.jpg" width="300"/>
+  <a href="https://f.top4top.io/p_3305ofiqh7.jpg">
+    <img src="https://f.top4top.io/p_3305ofiqh7.jpg" width="300"/>
   </a>
 </p>
 
