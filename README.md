@@ -1,4 +1,3 @@
-![Welcome GIF](https://media.tenor.com/images/12693328313924801782/wlcm.gif)
 # *Pemberitahuan Penting Mengenai Filter❗*
 
 - **Filter `-af` (Admin Finder):**  
@@ -93,12 +92,15 @@ Menggabungkan admin finder, parameter rentan, dan filter random:
 
 python param.py https://example.com -random -af -pr
 
+---
+
+
 
 # *📸screenshot 📸*
 
 <p align="center">
   <a href="https://f.top4top.io/p_3305ofiqh7.jpg">
-    <img src="https://f.top4top.io/p_3305ofiqh7.jpg" width="300"/>
+    <img src="https://f.top4top.io/p_3305ofiqh7.jpg" width="300" height="300px" />
   </a>
 </p>
 
