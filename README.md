@@ -4,7 +4,9 @@
   Filter ini masih dalam tahap pengembangan dan perbaikan, sehingga kurang efektif untuk digunakan. Tim pengembang sedang berusaha meningkatkan akurasi dan efisiensinya.  
 
 - **Filter `-pr` (Parameter Rentan):**  
-  Filter ini juga belum sepenuhnya efisien untuk digunakan dan saat ini sedang dalam proses perbaikan agar dapat memberikan hasil yang lebih optimal.  
+  Filter ini juga belum sepenuhnya efisien untuk digunakan dan saat ini sedang dalam proses perbaikan agar dapat memberikan hasil yang lebih optimal.
+  
+dan admin minta maaf sebesar-besarnya kalau tools nya ini bekerja dengan lambat kurang efisien 🗿🙏
 
 Terima kasih atas pengertiannya! Saya RenXploit akan terus memberikan pembaruan untuk meningkatkan kinerja script ini.
 
