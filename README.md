@@ -1,5 +1,4 @@
-<img src="https://tenor.com/id/view/wlcm-gif-12693328313924801782" alt="Welcome GIF" width="200" />
-
+![Welcome GIF](https://media.tenor.com/images/12693328313924801782/wlcm.gif)
 # *Pemberitahuan Penting Mengenai Filter❗*
 
 - **Filter `-af` (Admin Finder):**  
