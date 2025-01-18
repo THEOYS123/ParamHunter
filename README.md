@@ -6,7 +6,7 @@
 - **Filter `-pr` (Parameter Rentan):**  
   Filter ini juga belum sepenuhnya efisien untuk digunakan dan saat ini sedang dalam proses perbaikan agar dapat memberikan hasil yang lebih optimal.
   
-dan admin minta maaf sebesar-besarnya kalau tools nya ini bekerja dengan lambat kurang efisien wajar lah manusia bukan robit boy 🗿🙏
+dan admin minta maaf sebesar-besarnya kalau tools nya ini bekerja dengan lambat `WAJAR LAH MANUSIA BUKAN ROBOT BOY 🗿🙏`
 
 Terima kasih atas pengertiannya! Saya RenXploit akan terus memberikan pembaruan untuk meningkatkan kinerja script ini.
 
