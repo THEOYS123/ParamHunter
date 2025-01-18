@@ -1,4 +1,4 @@
-# *⚠️ Pemberitahuan Penting Mengenai Filter ⚠️*
+# *Pemberitahuan Penting Mengenai Filter❗*
 
 - **Filter `-af` (Admin Finder):**  
   Filter ini masih dalam tahap pengembangan dan perbaikan, sehingga kurang efektif untuk digunakan. Tim pengembang sedang berusaha meningkatkan akurasi dan efisiensinya.  
