@@ -1,4 +1,4 @@
-![Welcome GIF](https://media.tenor.com/id/view/wlcm-gif-12693328313924801782.gif)
+![Welcome GIF](https://tenor.com/phPJ1jNhhC6.gif)
 
 # *Pemberitahuan Penting Mengenai Filter❗*
 
