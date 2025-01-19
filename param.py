@@ -1,4 +1,4 @@
-# dan ini script nya:
+
 import argparse
 import requests
 from bs4 import BeautifulSoup
