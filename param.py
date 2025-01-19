@@ -1,3 +1,4 @@
+# dan ini script nya:
 import argparse
 import requests
 from bs4 import BeautifulSoup
@@ -11,12 +12,17 @@ import re
 import string
 import random
 import time
+import signal
+import sys
 
 console = Console()
 
 user_agents = [
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36',
     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36',
+    'Mozilla/5.0 (Linux; Android 10; SM-G970F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Mobile Safari/537.36',
+    'Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1',
+    'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36',
 ]
 
 extra_headers = {
@@ -26,39 +32,28 @@ extra_headers = {
     'Upgrade-Insecure-Requests': '1',
 }
 
-# Fungsi untuk ngecek kerentanannya SQL injection
-def test_sql_injection(url):
-    payloads = [
-        "' OR 1=1 --",      # SQL injection basic
-        "' UNION SELECT NULL, NULL, NULL --",  # SQL union injection
-        "' AND 1=1 --",      # Another basic SQL injection
-        "' OR 'a'='a",      # Another form of SQL injection
-        "'; DROP TABLE users --"  # SQL injection yang lebih berbahaya
-    ]
-    
-    for payload in payloads:
-        full_url = url + payload
-        try:
-            response = requests.get(full_url)
-            if response.status_code == 200 and "error" in response.text.lower():
-                console.print(f"[bold red]Potensial SQL Injection ditemukan di: {full_url}[/bold red]")
-            else:
-                console.print(f"[bold green]Aman: {full_url}[/bold green]")
-        except requests.exceptions.RequestException as e:
-            console.print(f"[yellow][ERROR] Gagal akses {full_url}: {e}[/yellow]")
 
-# Fungsi untuk menampilkan menu SQL scan
-def sql_scan_menu():
-    console.print("[bold blue]Menu SQL Injection Scan[/bold blue]")
-    console.print("[yellow]Masukkan URL yang ingin di-scan untuk SQL injection:[/yellow]")
-    url = input("[bold cyan]URL: [/bold cyan]")
-    
-    if not url.startswith(("http://", "https://")):
-        console.print("[red]URL harus diawali dengan http:// atau https://[/red]")
-        return
-    
-    console.print("[bold yellow]Memulai scan SQL Injection...[/bold yellow]")
-    test_sql_injection(url)
+interrupted_results = {}
+
+def signal_handler(sig, frame):
+    """Handler untuk menangani CTRL+C"""
+    console.print("\n[bold red][CTRL+C] Script dihentikan paksa oleh pengguna.[/bold red]")
+    if interrupted_results:
+        console.print("\n[bold green][HASIL] URL yang ditemukan sejauh ini:[/bold green]")
+        for filter_type, urls in interrupted_results.items():
+            if urls:
+                table = Table(title=f"Filter: {filter_type}", show_lines=True)
+                table.add_column("No", justify="center", style="cyan", no_wrap=True)
+                table.add_column("URL", justify="left", style="magenta")
+                for i, url in enumerate(urls, 1):
+                    table.add_row(str(i), url)
+                console.print(table)
+    else:
+        console.print("[yellow][INFO] Tidak ada hasil yang ditemukan sejauh ini.[/yellow]")
+    sys.exit(0)
+
+# Tangkap signal CTRL+C
+signal.signal(signal.SIGINT, signal_handler)
 
 def generate_random_parameter(length=10):
     return ''.join(random.choices(string.ascii_letters + string.digits, k=length))
@@ -91,9 +86,11 @@ def has_query_parameter(url):
     return '?' in url and '=' in url
 
 def crawl_website(base_url, filters, random_search=False, af_search=False, pr_search=False):
+    global interrupted_results  # Variabel global untuk menyimpan hasil saat dihentikan
     visited = set()
     queue = deque([base_url])
-    matching_urls = []
+    matching_urls = {filter_type: [] for filter_type in filters}  # Hasil disimpan berdasarkan filter
+    interrupted_results = matching_urls  # Referensi hasil ke variabel global
 
     if random_search:
         filters.extend([generate_random_parameter() for _ in range(3)])
@@ -108,12 +105,12 @@ def crawl_website(base_url, filters, random_search=False, af_search=False, pr_se
         console.print("[bold yellow][INFO] Mencari admin finder dengan filter yang relevan.[/bold yellow]")
 
     if pr_search:
-        pr_filters = ['?id=', '?page=', '?search=', '?category=', '?product=', '?lang=', 'page?', '?keyword=']
+        pr_filters = ['?id=', '?page=', '?search=', '?category=', '?product=', '?lang=', '?keyword=']
         filters.extend(pr_filters)
         console.print("[bold yellow][INFO] Mencari parameter rentan dengan filter: pr.[/bold yellow]")
 
     while queue:
-        current_url = queue.popleft()  # Ambil URL dari deque
+        current_url = queue.popleft()
         if current_url in visited:
             continue
 
@@ -135,46 +132,37 @@ def crawl_website(base_url, filters, random_search=False, af_search=False, pr_se
                 if full_url not in visited and full_url not in queue:
                     new_urls.append(full_url)
 
-                for filter_type in filters:  # Di sini 'filters' harus digunakan
-                    if filter_type and isinstance(filter_type, str):  # Pastikan filter_type valid
-                        try:
-                            # Perbaiki regex agar dapat menangani parameter filter dengan aman
-                            if re.search(f"{re.escape(filter_type)}$", full_url):
-                                if full_url not in matching_urls:
-                                    matching_urls.append(full_url)
-                                break
-                        except re.error as e:
-                            console.print(f"[bold red][ERROR] Kesalahan regex: {e}[/bold red]")
-                            continue
+                # Cek URL berdasarkan filter
+                for filter_type in filters:
+                    if filter_type and isinstance(filter_type, str):
+                        if re.search(re.escape(filter_type), full_url):
+                            if full_url not in matching_urls[filter_type]:
+                                matching_urls[filter_type].append(full_url)
+                            break
 
         queue.extend(new_urls)
 
+    # Output hasil berdasarkan jenis filter
     console.print("\n[bold green][HASIL] URL yang ditemukan By Ren-Xploit:[/bold green]")
-    if matching_urls:
-        table = Table(title="Matching URLs", show_lines=True)
-        table.add_column("No", justify="center", style="cyan", no_wrap=True)
-        table.add_column("URL", justify="left", style="magenta")
-        for i, url in enumerate(matching_urls, 1):
-            table.add_row(str(i), url)
-        console.print(table)
+    if any(matching_urls.values()):
+        for filter_type, urls in matching_urls.items():
+            if urls:
+                table = Table(title=f"Filter: {filter_type}", show_lines=True)
+                table.add_column("No", justify="center", style="cyan", no_wrap=True)
+                table.add_column("URL", justify="left", style="magenta")
+                for i, url in enumerate(urls, 1):
+                    table.add_row(str(i), url)
+                console.print(table)
     else:
         console.print("[yellow][INFO] Tidak ada URL yang cocok ditemukan.[/yellow]")
-
+        
 def show_help():
     console.print(Panel.fit("""
-[bold yellow]Selamat Datang di tools ParamHunter By RenXploit:[/bold yellow]
 [bold yellow]Cara Penggunaan:[/bold yellow]
-python ParamHunter.py [bold cyan]URL[/bold cyan] -f [bold cyan]FILTER[/bold cyan]
+python script.py [bold cyan]URL[/bold cyan] -f [bold cyan]FILTER[/bold cyan]
 
-[bold yellow]Contoh Penggunaan normal:[/bold yellow]
-python ParamHunter.py https://example.com -f .php
-
-[bold yellow]Contoh Penggunaan admin finder:[/bold yellow]
-python ParamHunter https://example.com -f -af
-
-[bold yellow]Contoh Penggunaan Parameter Rentan Work 7/10:[/bold yellow]
-python ParamHunter https://example.com -f .php -pr
-
+[bold yellow]Contoh Penggunaan:[/bold yellow]
+python script.py https://example.com -f .php .html .json
 
 [bold yellow]Jenis Parameter yang Didukung:[/bold yellow]
 - .php
@@ -203,22 +191,23 @@ python ParamHunter https://example.com -f .php -pr
 -random : Mencari parameter secara random (dorking)
 -af : Mencari halaman admin (admin finder)
 -pr : Mencari parameter rentan
-    """, title="[bold blue]ParamHunter - Help[/bold blue]", border_style="bold green"))
+    """, title="[bold blue]Parameter Finder - Help[/bold blue]", border_style="bold green"))
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Script untuk mencari parameter di website dengan filter yang sangat keren dan valid."
+        description="Script untuk mencari parameter di website dengan filter yang sangat keren dan valid.",
+        add_help=False
     )
     parser.add_argument("url", nargs="?", help="URL target (contoh: https://example.com)")
     parser.add_argument("-f", "--filter", nargs="*", help="Jenis parameter yang dicari (contoh: .php .html .json)")
     parser.add_argument("-random", action="store_true", help="Menggunakan filter random otomatis (dorking)")
     parser.add_argument("-af", action="store_true", help="Mencari halaman admin (admin finder)")
     parser.add_argument("-pr", action="store_true", help="Mencari parameter rentan")
-    parser.add_argument("-sql", action="store_true", help="Mencari kerentanannya SQL Injection")  # Tambahkan ini
+    parser.add_argument("-h", "--help", action="store_true", help="Menampilkan panduan interaktif")
 
     args = parser.parse_args()
 
-    if not args.url or (not args.filter and not args.random and not args.af and not args.pr and not args.sql):
+    if args.help or not args.url or (not args.filter and not args.random and not args.af and not args.pr):
         show_help()
         return
 
@@ -228,7 +217,7 @@ def main():
         return
 
     filters = args.filter if args.filter else []
-
+    
     # Tambahkan filter random jika argumen -random digunakan
     if args.random:
         random_filters = [
@@ -257,16 +246,9 @@ def main():
         filters.extend(pr_filters)
         console.print("[bold yellow][INFO] Menggunakan filter parameter rentan.[/bold yellow]")
 
-    # Menambahkan logika untuk SQL Injection jika -sql digunakan
-    if args.sql:
-        sql_filters = ['?id=', '?page=', '?search=', '?category=', '?product=', '?lang=', '?keyword=']
-        filters.extend(sql_filters)
-        console.print("[bold yellow][INFO] Menggunakan filter untuk mencari kerentanannya SQL Injection.[/bold yellow]")
-
     # Mulai proses crawling
     console.print(f"[bold green][INFO] Memulai crawling untuk: {args.url}[/bold green]")
     crawl_website(args.url, filters, random_search=args.random, af_search=args.af, pr_search=args.pr)
-
 
 if __name__ == "__main__":
     main()
