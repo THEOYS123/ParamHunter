@@ -43,9 +43,9 @@ Terima kasih atas pengertiannya! Saya RenXploit akan terus memberikan pembaruan 
 1. Clone repository ini:  
    ```bash
    pip install argparse requests beautifulsoup4 rich
-   pip install python
+   pkg install python
    pkg update
-   pkg upgrade
+   pkg uupgrde
    pkg update && pkg upgrade
    git clone https://github.com/THEOYS123/ParamHunter.git
    cd ParamHunter
